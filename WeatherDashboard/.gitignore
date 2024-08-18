@@ -8,7 +8,7 @@ project.lock.json
 project.fragment.lock.json
 
 # API keys
-
+local.settings.json
 
 
 # npm/Yarn logs
