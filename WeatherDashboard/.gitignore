@@ -1,0 +1,22 @@
+﻿
+# NuGet Packages
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# API keys
+
+
+
+# npm/Yarn logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# npm packages
+node_modules/
+package-lock.json
+yarn.lock

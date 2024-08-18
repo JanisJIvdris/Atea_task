@@ -1,0 +1,60 @@
+﻿@model IEnumerable<WeatherDashboard.Models.WeatherInformation>
+
+@{
+    ViewData["Title"] = "Weather Data";
+
+    // Path to the React-generated JavaScript file
+    var mainJs = "main.a4866fef.js"; // Replace with your actual build hash
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Table to display the latest 3 weather data entries -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>City</th>
+            <th>Temperature (°C)</th>
+            <th>Last Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var weather in Model)
+        {
+            <tr>
+                <td>@weather.Country</td>
+                <td>@weather.City</td>
+                <td>@string.Format("{0:N1}", weather.Temperature)</td>
+                <td>@weather.LastUpdate.ToLocalTime()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Div to display the React-based charts -->
+<div id="weather-chart"></div>
+
+@section Scripts {
+    <!-- Include the React app's main JavaScript file -->
+    <script src="~/react-app/static/js/@(mainJs)"></script>
+
+    <script>
+        // Check if React and ReactDOM are loaded correctly
+        if (window.React && window.ReactDOM) {
+            window.ReactDOM.render(
+                React.createElement(WeatherChart, { url: '/api/weather/temperature-data' }),
+                document.getElementById('weather-chart')
+            );
+        } else {
+            console.error("ReactDOM is not available.");
+        }
+    </script>
+
+    <script>
+        // Reload the page every 30 seconds
+        setTimeout(function () {
+            location.reload();
+        }, 30000);
+    </script>
+}
